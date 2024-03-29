@@ -5,13 +5,13 @@ import styles from "./styles.module.css";
 import useAuth from "@/hooks/useAuth";
 
 const ProfileBtn = () => {
-  const { user, signIn, signOut } = useAuth();
+  const { authUser, signIn, signOut } = useAuth();
 
   return (
     <>
-      {user ? (
+      {authUser ? (
         <div className={styles.user_btn_wrapper} onClick={signOut}>
-          <p>{user.displayName}</p>
+          <p>{authUser.displayName}</p>
         </div>
       ) : (
         <button onClick={signIn}>Login</button>

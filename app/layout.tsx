@@ -4,8 +4,7 @@ import { Inter } from "next/font/google";
 import ProfileBtn from "@/components/ProfileBtn";
 import styles from "./layout.module.css";
 import "./globals.css";
-
-const inter = Inter({ subsets: ["latin"] });
+import { lexend } from "@/fonts";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -18,8 +17,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
+    <html lang="en" className={lexend.className}>
+      <body>
         <header className={styles.nav_header}>
           <nav className={styles.nav_wrapper}>
             <h1>StakeSim</h1>

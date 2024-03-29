@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
-import { auth } from "@/firebase";
+import { useRouter } from "next/navigation";
+// Firebase
+import { doc, getDoc } from "firebase/firestore";
+import { db, auth } from "@/firebase";
 import {
   onAuthStateChanged,
   signInWithPopup,
@@ -9,7 +12,8 @@ import {
 } from "firebase/auth";
 
 const useAuth = () => {
-  const [user, setUser] = useState<User | null>(null);
+  const [authUser, setAuthUser] = useState<User | null>(null);
+  const router = useRouter();
 
   const googleSignIn = async () => {
     const provider = new GoogleAuthProvider();
@@ -21,10 +25,18 @@ const useAuth = () => {
   };
 
   useEffect(() => {
-    const unsub = onAuthStateChanged(auth, setUser);
+    const unsub = onAuthStateChanged(auth, async (user) => {
+      setAuthUser(user);
+      if (user) {
+        const userDoc = await getDoc(doc(db, "users", user.uid));
+        if (!userDoc.exists()) {
+          router.push(`/setup/${user.uid}`);
+        }
+      }
+    });
     return () => unsub();
   });
-  return { user, signIn: googleSignIn, signOut: googleSignOut };
+  return { authUser, signIn: googleSignIn, signOut: googleSignOut };
 };
 
 export default useAuth;
