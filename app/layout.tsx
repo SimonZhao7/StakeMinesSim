@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+// Components
+import ProfileBtn from "@/components/ProfileBtn";
+import styles from "./layout.module.css";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -16,7 +19,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <header className={styles.nav_header}>
+          <nav className={styles.nav_wrapper}>
+            <h1>StakeSim</h1>
+            <ProfileBtn />
+          </nav>
+        </header>
+        {children}
+      </body>
     </html>
   );
 }

@@ -1,0 +1,13 @@
+.nav_header {
+    background-color: #526D82;
+    height: 70px;
+}
+
+.nav_wrapper {
+    width: 1200px;
+    height: 100%;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
