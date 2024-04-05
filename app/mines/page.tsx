@@ -1,7 +1,7 @@
 const Mines = () => {
   return (
    <main>
-
+    
    </main>
   )
 }
