@@ -31,3 +31,8 @@
     cursor: pointer;
     transition: all 0.3s ease;
 }
+
+.minesRowWrapper {
+    display: flex;
+    gap: 10px;
+}

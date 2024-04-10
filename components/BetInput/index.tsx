@@ -11,13 +11,12 @@ const BetInput: FunctionComponent<BetInputProps> = ({ value, setValue }) => {
     <>
       <div className={styles.labelRow}>
         <label>Bet Amount</label>
-        <label>${value ? value.toFixed(2) : 0}</label>
+        <label>${value ? value.toFixed(2) : Number(0).toFixed(2)}</label>
       </div>
       <div className={styles.inputRow}>
         <input
           className={styles.input}
           value={value}
-          defaultValue={0}
           type="number"
           min={0}
           step={0.01}
