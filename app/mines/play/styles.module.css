@@ -1,0 +1,33 @@
+.main {
+    padding-top: 70px;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    gap: 40px;
+}
+
+.settings {
+    flex: 1;
+    background-color: #3a4e5e;
+    padding: 40px;
+}
+
+.gameWrapper {
+    flex: 3;
+    display: grid;
+    place-content: center;
+    grid-template-rows: repeat(5, 120px);
+    grid-template-columns: repeat(5, 120px);
+    gap: 20px;
+}
+
+.mineBtn {
+    background-color: #3e596d;
+    /* background-color: #182230; */
+    color: white;
+    border: 0;
+    border-radius: 10px;
+    box-shadow: 0 7px 0 #3d5261;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
