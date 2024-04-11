@@ -2,7 +2,11 @@ import { BetInputProps } from "./types";
 import styles from "./styles.module.css";
 import { ChangeEventHandler, FunctionComponent } from "react";
 
-const BetInput: FunctionComponent<BetInputProps> = ({ value, setValue }) => {
+const BetInput: FunctionComponent<BetInputProps> = ({
+  value,
+  disabled,
+  setValue,
+}) => {
   const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     setValue(Number.parseFloat(e.target.value));
   };
@@ -20,15 +24,27 @@ const BetInput: FunctionComponent<BetInputProps> = ({ value, setValue }) => {
           type="number"
           min={0}
           step={0.01}
+          disabled={disabled}
           onChange={handleChange}
         />
         <button
           className={styles.inputBtn}
-          onClick={() => setValue(0.5 * value)}
+          onClick={() => {
+            if (!disabled) {
+              setValue(0.5 * value);
+            }
+          }}
         >
           1/2
         </button>
-        <button className={styles.inputBtn} onClick={() => setValue(2 * value)}>
+        <button
+          className={styles.inputBtn}
+          onClick={() => {
+            if (!disabled) {
+              setValue(2 * value);
+            }
+          }}
+        >
           2x
         </button>
       </div>

@@ -35,7 +35,7 @@ const useAuth = () => {
       }
     });
     return () => unsub();
-  });
+  }, []);
   return { authUser, signIn: googleSignIn, signOut: googleSignOut };
 };
 

@@ -28,11 +28,27 @@
     border: 0;
     border-radius: 10px;
     box-shadow: 0 7px 0 #3d5261;
-    cursor: pointer;
     transition: all 0.3s ease;
+}
+
+.mineBtn:hover {
+    cursor: pointer;
 }
 
 .minesRowWrapper {
     display: flex;
     gap: 10px;
+}
+
+.minesAnsWrapper {
+    background-color: #17202d;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.diamond {
+    width: 80px;
+    height: 80px;
 }

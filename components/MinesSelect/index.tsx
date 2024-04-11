@@ -6,6 +6,7 @@ import styles from "./styles.module.css";
 
 const MinesSelect: FunctionComponent<MinesSelectProps> = ({
   value,
+  disabled,
   setValue,
 }) => {
   const [selectOpen, setSelectOpen] = useState(false);
@@ -30,11 +31,15 @@ const MinesSelect: FunctionComponent<MinesSelectProps> = ({
   return (
     <div className={styles.selectWrapper} ref={dropdownRef}>
       <label className={styles.label}>Mines</label>
-      <div className={styles.selectDisplay} onClick={() => setSelectOpen(true)}>
+      <div
+        className={styles.selectDisplay}
+        style={{ cursor: disabled ? "not-allowed" : "pointer" }}
+        onClick={() => setSelectOpen(true)}
+      >
         <p>{value}</p>
         <TiArrowSortedDown size={20} />
       </div>
-      {selectOpen && (
+      {!disabled && selectOpen && (
         <div className={styles.selectDropdown}>
           {new Array(24).fill(0).map((_, i) => (
             <button
