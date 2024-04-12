@@ -8,4 +8,5 @@ export type MineGame = {
   mines: number;
   prizeRate: number;
   active: boolean;
+  user: string;
 };

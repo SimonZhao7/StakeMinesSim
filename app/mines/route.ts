@@ -3,7 +3,8 @@ import { NextResponse } from "next/server";
 import { BoardEntry, AnswerEntry } from "./types";
 // Firebase
 import { db } from "@/firebase";
-import { doc, addDoc, collection, getDoc } from "firebase/firestore";
+import { doc, addDoc, collection, getDoc, updateDoc } from "firebase/firestore";
+import { User } from "../types";
 
 type PostRequestBody = {
   mines: number;
@@ -11,9 +12,19 @@ type PostRequestBody = {
 };
 
 export async function POST(request: Request) {
-  const uid = request.headers.get("Authorization")?.split(" ")[1];
+  const authHeader = request.headers.get("Authorization");
 
-  if (!uid || !(await getDoc(doc(db, "users", uid))).exists()) {
+  if (authHeader === null) {
+    return NextResponse.json(
+      { message: `No auth token provided` },
+      { status: 400 }
+    );
+  }
+
+  const uid = authHeader.split(" ")[1];
+  const userRef = await getDoc(doc(db, "users", uid));
+
+  if (!uid || !userRef.exists()) {
     return NextResponse.json(
       {
         message:
@@ -24,6 +35,7 @@ export async function POST(request: Request) {
     );
   }
 
+  const user = { id: userRef.id, ...userRef.data() } as User;
   const body: PostRequestBody = await request.json();
 
   if (!body.mines) {
@@ -46,8 +58,8 @@ export async function POST(request: Request) {
     );
   }
 
-  const board = new Array<BoardEntry>(25).fill('DIAMOND');
-  const selected = new Array<AnswerEntry>(25).fill('UNDEF');
+  const board = new Array<BoardEntry>(25).fill("DIAMOND");
+  const selected = new Array<AnswerEntry>(25).fill("UNDEF");
 
   const mineLocations = new Set<number>();
   while (mineLocations.size < mines) {
@@ -55,14 +67,18 @@ export async function POST(request: Request) {
     mineLocations.add(location);
     board[location] = "BOMB";
   }
- 
+
   const dbEntry = {
     selected,
     mines,
     bet,
     prizeRate: 1,
     active: true,
+    user: user.id,
   };
   const ref = await addDoc(collection(db, "mines"), { board, ...dbEntry });
+  await updateDoc(userRef.ref, {
+    balance: user.balance - bet,
+  });
   return NextResponse.json({ id: ref.id, ...dbEntry }, { status: 200 });
 }

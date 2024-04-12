@@ -13,7 +13,7 @@ import { db } from "@/firebase";
 // Components
 import BetInput from "@/components/BetInput";
 import MinesSelect from "@/components/MinesSelect";
-import DiamondsDisplay from "@/components/DiamondsDisplay";
+import MineLabelDisplay from "@/components/MineLabelDisplay";
 import ConfirmBtn from "@/components/ConfirmBtn";
 import styles from "./styles.module.css";
 import useAuth from "@/hooks/useAuth";
@@ -48,27 +48,54 @@ const Mines = () => {
             ...doc.data(),
           } as MineGame)
       )[0];
-      setMineGame(game);
-      setBet(game.bet);
-      setMines(game.mines);
+      if (game) {
+        setMineGame(game);
+        setBet(game.bet);
+        setMines(game.mines);
+      }
     });
     setLoading(false);
     return () => unsub();
   }, [user]);
 
-  const guessCell = (cellIdx: number) => {
-    const r = Math.floor(cellIdx / 5);
-    const c = cellIdx % 5;
+  const guessCell = async (cellIdx: number) => {
+    // Only allow guess if game not over
+    if (mineGame!.prizeRate > 0) {
+      const r = Math.floor(cellIdx / 5);
+      const c = cellIdx % 5;
 
-    fetch(`/mines/${mineGame!.id}`, {
+      await fetch(`/mines/${mineGame!.id}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          row: r,
+          col: c,
+        }),
+      });
+    }
+  };
+
+  const createGame = async () => {
+    await fetch("/mines", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        Authorization: `Token ${user!.uid}`,
       },
       body: JSON.stringify({
-        row: r,
-        col: c,
+        mines,
+        bet,
       }),
+    });
+  };
+
+  const cashout = async () => {
+    await fetch(`/mines/${mineGame!.id}/cashout`, {
+      method: "POST",
+      headers: {
+        Authorization: `Token ${user!.uid}`,
+      },
     });
   };
 
@@ -89,10 +116,21 @@ const Mines = () => {
                 setValue={setMines}
                 disabled={mineGame !== null}
               />
-              <DiamondsDisplay mines={mines} />
+              <MineLabelDisplay label={"Diamonds"} value={25 - mines} />
             </div>
             <br />
-            <ConfirmBtn label={"Begin Game"} onClick={() => {}} />
+            {mineGame ? (
+              <>
+                <MineLabelDisplay
+                  label="Cashout Value"
+                  value={"$ " + (mineGame.bet * mineGame.prizeRate).toFixed(2)}
+                />
+                <br />
+                <ConfirmBtn label={"Play Again"} onClick={() => cashout()} />
+              </>
+            ) : (
+              <ConfirmBtn label={"Begin Game"} onClick={() => createGame()} />
+            )}
           </aside>
           <section className={styles.gameWrapper}>
             {mineGame ? (
