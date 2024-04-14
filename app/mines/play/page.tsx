@@ -1,8 +1,7 @@
 "use client";
-import { useState, useEffect, MouseEventHandler } from "react";
+import { useState, useEffect } from "react";
 // Firebase
 import {
-  getDocs,
   query,
   onSnapshot,
   collection,
@@ -19,9 +18,7 @@ import styles from "./styles.module.css";
 import useAuth from "@/hooks/useAuth";
 import { MineGame } from "./types";
 import Spinner from "@/components/Spinner";
-import Image from "next/image";
-import diamond from "@/public/images/diamond.png";
-import bomb from "@/public/images/bomb.png";
+import MineBtn from "@/components/MineBtn";
 
 const Mines = () => {
   const [loading, setLoading] = useState(true);
@@ -57,25 +54,6 @@ const Mines = () => {
     setLoading(false);
     return () => unsub();
   }, [user]);
-
-  const guessCell = async (cellIdx: number) => {
-    // Only allow guess if game not over
-    if (mineGame!.prizeRate > 0) {
-      const r = Math.floor(cellIdx / 5);
-      const c = cellIdx % 5;
-
-      await fetch(`/mines/${mineGame!.id}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          row: r,
-          col: c,
-        }),
-      });
-    }
-  };
 
   const createGame = async () => {
     await fetch("/mines", {
@@ -135,37 +113,9 @@ const Mines = () => {
           <section className={styles.gameWrapper}>
             {mineGame ? (
               <>
-                {mineGame.selected.map((v, i) => {
-                  if (v === "DIAMOND") {
-                    return (
-                      <div className={styles.minesAnsWrapper}>
-                        <Image
-                          className={styles.diamond}
-                          src={diamond}
-                          alt={"Green diamond"}
-                        />
-                      </div>
-                    );
-                  }
-                  if (v === "BOMB") {
-                    return (
-                      <div className={styles.minesAnsWrapper}>
-                        <Image
-                          className={styles.diamond}
-                          src={bomb}
-                          alt={"Red bomb"}
-                        />
-                      </div>
-                    );
-                  }
-                  return (
-                    <button
-                      className={styles.mineBtn}
-                      onClick={() => guessCell(i)}
-                      key={i}
-                    ></button>
-                  );
-                })}
+                {mineGame.selected.map((v, i) => (
+                  <MineBtn mineGame={mineGame} key={i} value={v} i={i} />
+                ))}
               </>
             ) : (
               <>

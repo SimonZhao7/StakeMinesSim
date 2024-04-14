@@ -1,0 +1,30 @@
+.mineBtn {
+    background-color: #3e596d;
+    /* background-color: #182230; */
+    color: white;
+    border: 0;
+    border-radius: 10px;
+    box-shadow: 0 7px 0 #3d5261;
+    transition: all 0.2s ease;
+}
+
+.mineBtn:hover {
+    cursor: pointer;
+}
+
+.btnLoading {
+    scale: 0.85;
+}
+
+.minesAnsWrapper {
+    background-color: #17202d;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.diamond {
+    width: 80px;
+    height: 80px;
+}
