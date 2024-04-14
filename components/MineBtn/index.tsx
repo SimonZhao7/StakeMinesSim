@@ -29,21 +29,20 @@ const MineBtn: FunctionComponent<MineBtnProps> = ({ mineGame, value, i }) => {
     }
   };
 
-  if (value === "UNDEF") {
-    return (
-      <button
-        className={`${styles.mineBtn} ${loading && styles.btnLoading}`}
-        onClick={() => guessCell(i)}
-      ></button>
-    );
-  }
-
-  const imgSrc = value === "DIAMOND" ? diamond : bomb;
-  const imgAlt = value === "DIAMOND" ? "Green diamond" : "Red bomb";
   return (
-    <div className={styles.minesAnsWrapper}>
-      <Image className={styles.diamond} src={imgSrc} alt={imgAlt} />
-    </div>
+    <button
+      className={`${styles.mineBtn} ${loading && styles.btnLoading} ${
+        value !== "UNDEF" && styles.minesAnsWrapper
+      }`}
+      onClick={() => guessCell(i)}
+    >
+      {value === "DIAMOND" && (
+        <Image className={styles.diamond} src={diamond} alt={"Green diamond"} />
+      )}
+      {value === "BOMB" && (
+        <Image className={styles.diamond} src={bomb} alt={"Red bomb"} />
+      )}
+    </button>
   );
 };
 
