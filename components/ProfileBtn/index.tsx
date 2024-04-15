@@ -11,7 +11,7 @@ const ProfileBtn = () => {
     <>
       {authUser ? (
         <div className={styles.user_btn_wrapper} onClick={signOut}>
-          <p>{authUser.displayName}</p>
+          <p>{authUser.username}</p>
         </div>
       ) : (
         <button onClick={signIn}>Login</button>

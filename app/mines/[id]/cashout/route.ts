@@ -51,7 +51,7 @@ export async function POST(request: Request, context: { params: Params }) {
   });
 
   await updateDoc(userRef.ref, {
-    balance: user.balance + +profit.toFixed(2),
+    balance: +(user.balance + profit).toFixed(2),
   });
   return NextResponse.json({}, { status: 200 });
 }

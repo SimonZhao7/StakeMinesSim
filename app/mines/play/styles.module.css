@@ -29,6 +29,7 @@
     border-radius: 10px;
     box-shadow: 0 7px 0 #3d5261;
     transition: all 0.2s ease;
+    cursor: not-allowed;
 }
 
 .minesRowWrapper {

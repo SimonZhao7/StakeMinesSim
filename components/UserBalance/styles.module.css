@@ -1,0 +1,9 @@
+.balanceWrapper {
+    background-color: #17202d;
+    padding: 10px 15px;
+    border-radius: 5px;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}

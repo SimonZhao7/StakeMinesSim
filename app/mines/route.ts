@@ -82,7 +82,7 @@ export async function POST(request: Request) {
   };
   const ref = await addDoc(collection(db, "mines"), { board, ...dbEntry });
   await updateDoc(userRef.ref, {
-    balance: user.balance - bet,
+    balance: +(user.balance - bet).toFixed(2),
   });
   return NextResponse.json({ id: ref.id, ...dbEntry }, { status: 200 });
 }

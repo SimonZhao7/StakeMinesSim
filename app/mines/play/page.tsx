@@ -36,7 +36,7 @@ const Mines = () => {
     const q = query(
       collection(db, "mines"),
       where("active", "==", true),
-      where("user", "==", user?.uid),
+      where("user", "==", user?.id),
       limit(1)
     );
 
@@ -64,11 +64,11 @@ const Mines = () => {
     await fetch("/mines", {
       method: "POST",
       headers: {
-        Authorization: `Token ${user!.uid}`,
+        Authorization: `Token ${user!.id}`,
       },
       body: JSON.stringify({
         mines,
-        bet,
+        bet: +bet.toFixed(2),
       }),
     });
   };
@@ -77,7 +77,7 @@ const Mines = () => {
     await fetch(`/mines/${mineGame!.id}/cashout`, {
       method: "POST",
       headers: {
-        Authorization: `Token ${user!.uid}`,
+        Authorization: `Token ${user!.id}`,
       },
     });
   };

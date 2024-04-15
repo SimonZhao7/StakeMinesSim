@@ -2,9 +2,12 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 // Components
 import ProfileBtn from "@/components/ProfileBtn";
-import styles from "./layout.module.css";
-import "./globals.css";
+import UserBalance from "@/components/UserBalance";
+// Fonts
 import { lexend } from "@/fonts";
+// Styles
+import "./globals.css";
+import styles from "./layout.module.css";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -22,6 +25,7 @@ export default function RootLayout({
         <header className={styles.nav_header}>
           <nav className={styles.nav_wrapper}>
             <h1>StakeSim</h1>
+            <UserBalance />
             <ProfileBtn />
           </nav>
         </header>
