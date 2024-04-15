@@ -51,6 +51,10 @@ export async function POST(request: Request) {
 
   const { mines, bet } = body;
 
+  if (user.balance < bet) {
+    return NextResponse.json({ message: "Insufficient balance." });
+  }
+
   if (mines <= 0 || mines >= 25) {
     return NextResponse.json(
       { message: `Invalid value for key "mines" ${mines}` },

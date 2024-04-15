@@ -1,9 +1,12 @@
 import { FunctionComponent, useState } from "react";
-import { MineBtnProps } from "./types";
 import Image from "next/image";
-import styles from "./styles.module.css";
+// Types
+import { MineBtnProps } from "./types";
+// Images
 import diamond from "@/public/images/diamond.png";
 import bomb from "@/public/images/bomb.png";
+// Styles
+import styles from "./styles.module.css";
 
 const MineBtn: FunctionComponent<MineBtnProps> = ({ mineGame, value, i }) => {
   const [loading, setLoading] = useState(false);

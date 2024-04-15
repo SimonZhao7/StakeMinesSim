@@ -5,6 +5,8 @@ import { AnswerEntry, MineGameRes } from "../types";
 // Firebase
 import { db } from "@/firebase";
 import { getDoc, doc, updateDoc } from "firebase/firestore";
+// Types
+import { MineGame } from "../play/types";
 
 const factorial = [1];
 let prod = 1;
@@ -45,7 +47,7 @@ export async function POST(request: Request, context: { params: Params }) {
   }
 
   const { row, col } = body;
-  const { board, selected, mines } = minesDoc.data();
+  const { board, selected, mines } = minesDoc.data() as MineGame;
   const idx = 5 * row + col;
 
   if (selected[idx] !== "UNDEF") {
@@ -57,9 +59,16 @@ export async function POST(request: Request, context: { params: Params }) {
 
   selected[idx] = board[idx];
 
+  const totalDiamonds = 25 - mines;
   const diamondsObtained = selected.filter(
     (v: AnswerEntry) => v === "DIAMOND"
   ).length;
+
+  if (board[idx] === "BOMB" || diamondsObtained == totalDiamonds) {
+    board.forEach((v, i) => {
+      selected[i] = v;
+    });
+  }
 
   const newRate =
     board[idx] === "DIAMOND"
@@ -73,7 +82,10 @@ export async function POST(request: Request, context: { params: Params }) {
 
   const responseData: MineGameRes = { ...minesDoc.data(), ...updateData };
   delete responseData.board;
-  
+
   await updateDoc(minesDoc.ref, updateData);
-  return NextResponse.json({ id: minesDoc.id, ...responseData }, { status: 200 });
+  return NextResponse.json(
+    { id: minesDoc.id, ...responseData },
+    { status: 200 }
+  );
 }

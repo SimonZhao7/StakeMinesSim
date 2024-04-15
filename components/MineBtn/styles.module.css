@@ -4,7 +4,7 @@
     border: 0;
     border-radius: 10px;
     box-shadow: 0 7px 0 #3d5261;
-    transition: scale 0.2s ease;
+    transition: scale 0.3s var(--ease-out);
 }
 
 .mineBtn:hover {
@@ -12,7 +12,7 @@
 }
 
 .btnLoading {
-    scale: 0.85;
+    scale: 0.8;
 }
 
 .minesAnsWrapper {

@@ -10,15 +10,18 @@ import {
 } from "firebase/firestore";
 import { db } from "@/firebase";
 // Components
-import BetInput from "@/components/BetInput";
-import MinesSelect from "@/components/MinesSelect";
-import MineLabelDisplay from "@/components/MineLabelDisplay";
-import ConfirmBtn from "@/components/ConfirmBtn";
-import styles from "./styles.module.css";
-import useAuth from "@/hooks/useAuth";
-import { MineGame } from "./types";
 import Spinner from "@/components/Spinner";
 import MineBtn from "@/components/MineBtn";
+import BetInput from "@/components/BetInput";
+import ConfirmBtn from "@/components/ConfirmBtn";
+import MinesSelect from "@/components/MinesSelect";
+import MineLabelDisplay from "@/components/MineLabelDisplay";
+// Hooks
+import useAuth from "@/hooks/useAuth";
+// Types
+import { MineGame } from "./types";
+// Styles
+import styles from "./styles.module.css";
 
 const Mines = () => {
   const [loading, setLoading] = useState(true);
@@ -49,6 +52,8 @@ const Mines = () => {
         setMineGame(game);
         setBet(game.bet);
         setMines(game.mines);
+      } else {
+        setMineGame(null);
       }
     });
     setLoading(false);

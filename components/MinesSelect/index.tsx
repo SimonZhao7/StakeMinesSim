@@ -1,7 +1,9 @@
 import { FunctionComponent, useState, useRef, useEffect } from "react";
+// Types
 import { MinesSelectProps } from "./types";
 // Icons
 import { TiArrowSortedDown } from "react-icons/ti";
+// Styles
 import styles from "./styles.module.css";
 
 const MinesSelect: FunctionComponent<MinesSelectProps> = ({
@@ -43,6 +45,7 @@ const MinesSelect: FunctionComponent<MinesSelectProps> = ({
         <div className={styles.selectDropdown}>
           {new Array(24).fill(0).map((_, i) => (
             <button
+              key={i}
               className={styles.optionBtn}
               onClick={(_) => {
                 setValue(i + 1);
