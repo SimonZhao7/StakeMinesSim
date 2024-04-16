@@ -15,6 +15,7 @@ import MineBtn from "@/components/MineBtn";
 import BetInput from "@/components/BetInput";
 import ConfirmBtn from "@/components/ConfirmBtn";
 import MinesSelect from "@/components/MinesSelect";
+import CashoutModal from "@/components/CashoutModal";
 import MineLabelDisplay from "@/components/MineLabelDisplay";
 // Hooks
 import useAuth from "@/hooks/useAuth";
@@ -28,6 +29,7 @@ const Mines = () => {
   const [mineGame, setMineGame] = useState<MineGame | null>(null);
   const [bet, setBet] = useState(0);
   const [mines, setMines] = useState(1);
+  const [modalOpen, setModalOpen] = useState(false);
   const { authUser: user } = useAuth();
 
   useEffect(() => {
@@ -52,8 +54,12 @@ const Mines = () => {
         setMineGame(game);
         setBet(game.bet);
         setMines(game.mines);
+        if (!game.selected.includes("UNDEF") && game.prizeRate > 0) {
+          setModalOpen(true);
+        }
       } else {
         setMineGame(null);
+        setModalOpen(false);
       }
     });
     setLoading(false);
@@ -109,7 +115,14 @@ const Mines = () => {
                   value={"$ " + (mineGame.bet * mineGame.prizeRate).toFixed(2)}
                 />
                 <br />
-                <ConfirmBtn label={"Play Again"} onClick={() => cashout()} />
+                {mineGame.prizeRate === 0 || modalOpen ? (
+                  <ConfirmBtn label={"Play Again"} onClick={() => cashout()} />
+                ) : (
+                  <ConfirmBtn
+                    label="Cash Out"
+                    onClick={() => setModalOpen(true)}
+                  />
+                )}
               </>
             ) : (
               <ConfirmBtn label={"Begin Game"} onClick={() => createGame()} />
@@ -129,6 +142,7 @@ const Mines = () => {
                 ))}
               </>
             )}
+            {mineGame && modalOpen && <CashoutModal mineGame={mineGame} />}
           </section>
         </>
       ) : (
