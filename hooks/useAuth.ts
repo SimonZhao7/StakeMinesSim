@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 // Firebase
-import { doc, getDoc, onSnapshot } from "firebase/firestore";
-import { db, auth } from "@/firebase";
 import {
   onAuthStateChanged,
   signInWithPopup,
   signOut,
   GoogleAuthProvider,
 } from "firebase/auth";
+import { db, auth } from "@/firebase";
+import { doc, getDoc, onSnapshot } from "firebase/firestore";
 // Types
 import { User } from "@/app/types";
 

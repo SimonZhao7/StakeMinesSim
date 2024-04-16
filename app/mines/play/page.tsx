@@ -20,7 +20,7 @@ import MineLabelDisplay from "@/components/MineLabelDisplay";
 // Hooks
 import useAuth from "@/hooks/useAuth";
 // Types
-import { MineGame } from "./types";
+import { MineGame } from "../types";
 // Styles
 import styles from "./styles.module.css";
 

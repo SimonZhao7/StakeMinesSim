@@ -1,6 +1,8 @@
-import { BetInputProps } from "./types";
-import styles from "./styles.module.css";
 import { ChangeEventHandler, FunctionComponent } from "react";
+// Types
+import { BetInputProps } from "./types";
+// Styles
+import styles from "./styles.module.css";
 
 const BetInput: FunctionComponent<BetInputProps> = ({
   value,

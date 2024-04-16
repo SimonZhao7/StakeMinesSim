@@ -1,10 +1,10 @@
 import { NextResponse } from "next/server";
-// Types
-import { BoardEntry, AnswerEntry } from "./types";
 // Firebase
 import { db } from "@/firebase";
 import { doc, addDoc, collection, getDoc, updateDoc } from "firebase/firestore";
+// Types
 import { User } from "../types";
+import { BoardEntry, AnswerEntry } from "./types";
 
 type PostRequestBody = {
   mines: number;

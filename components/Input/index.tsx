@@ -1,4 +1,5 @@
 import { FunctionComponent, Dispatch, SetStateAction } from "react";
+// Styles
 import styles from "./styles.module.css";
 
 type Props = {

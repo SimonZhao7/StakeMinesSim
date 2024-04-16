@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+// Fonts
+import { lexend } from "@/fonts";
 // Components
 import ProfileBtn from "@/components/ProfileBtn";
 import UserBalance from "@/components/UserBalance";
-// Fonts
-import { lexend } from "@/fonts";
 // Styles
 import "./globals.css";
 import styles from "./layout.module.css";

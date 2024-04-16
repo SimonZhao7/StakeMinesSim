@@ -1,12 +1,11 @@
-import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 import { NextResponse } from "next/server";
-// Types
-import { AnswerEntry, MineGameRes } from "../types";
+import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 // Firebase
 import { db } from "@/firebase";
 import { getDoc, doc, updateDoc } from "firebase/firestore";
 // Types
-import { MineGame } from "../play/types";
+import { MineGame } from "../types";
+import { AnswerEntry, MineGameRes } from "../types";
 
 const factorial = [1];
 let prod = 1;

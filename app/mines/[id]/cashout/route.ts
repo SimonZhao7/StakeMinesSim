@@ -1,9 +1,11 @@
+import { NextResponse } from "next/server";
+import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
+// Firebase
 import { db } from "@/firebase";
 import { updateDoc, doc, getDoc } from "firebase/firestore";
-import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
-import { NextResponse } from "next/server";
-import { MineGame } from "../../play/types";
+// Types
 import { User } from "@/app/types";
+import { MineGame } from "../../types";
 
 export async function POST(request: Request, context: { params: Params }) {
   const { id } = context.params;

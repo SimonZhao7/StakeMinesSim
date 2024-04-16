@@ -3,8 +3,8 @@ import Image from "next/image";
 // Types
 import { MineBtnProps } from "./types";
 // Images
-import diamond from "@/public/images/diamond.png";
 import bomb from "@/public/images/bomb.png";
+import diamond from "@/public/images/diamond.png";
 // Styles
 import styles from "./styles.module.css";
 

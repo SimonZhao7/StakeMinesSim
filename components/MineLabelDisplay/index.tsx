@@ -1,6 +1,8 @@
 import { FunctionComponent } from "react";
-import styles from "./styles.module.css";
+// Types
 import { MineLabelDisplayProps } from "./types";
+// Styles
+import styles from "./styles.module.css";
 
 const MineLabelDisplay: FunctionComponent<MineLabelDisplayProps> = ({
   label,
